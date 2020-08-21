@@ -1,0 +1,404 @@
+import 'package:flutter/material.dart';
+void main() {
+  runApp(MaterialApp(
+    title: 'Calculator',
+    theme: ThemeData(
+      brightness: Brightness.light,
+      accentColor: Colors.black87,
+    ),
+    home: Calculator(),
+    debugShowCheckedModeBanner: false,
+  ));
+}
+class Calculator extends StatefulWidget {
+  Calculator({Key key}) : super(key: key);
+  @override
+  _CalculatorState createState() => _CalculatorState();
+}
+class _CalculatorState extends State<Calculator> {
+  String numberTxt = "0";
+  double result = 0;
+  double calWidth = 300;
+  String operator = "";
+  String equation = "";
+  String displayedResult = "0";
+  
+  
+  void displayNumber(String value) {
+    if (numberTxt == "0") {
+      setState(() {
+        numberTxt = value;
+      });
+    } else {
+      setState(() {
+        numberTxt = numberTxt + value;
+      });
+    }
+    setState(() {
+      equation = equation + value;
+    });
+    if (operator == "/") {
+      division(double.parse(value));
+    }
+    else if (operator == "*") {
+      multiplication(double.parse(value));
+    }
+    else if (operator == "-") {
+      substraction(double.parse(value));
+    }
+    else if (operator == "+") {
+      addition(double.parse(value));
+    }
+    else{
+      result = double.parse(value);
+    }
+    setState((){
+      displayedResult = result.toString();
+    });
+    
+  }
+  
+  void setOperator(String op) {
+    if (equation == "") {
+      setState((){
+        numberTxt = result.toString();
+      });
+    }
+    else{
+      setState((){
+        operator = op;
+      });
+      setState((){
+        equation = equation + op;
+      });
+    }
+  }
+  
+ void division (double input){
+   setState((){
+     result = result/input;
+   });
+ }
+ void multiplication (double input){
+   setState((){
+     result = result*input;
+   });
+ }
+ void substraction (double input){
+   setState((){
+     result = result-input;
+   });
+ }
+ void addition (double input){
+   setState((){
+     result = result+input;
+   });
+ }
+  
+ void displayResult() {
+   setState((){
+     equation = result.toString();
+   });
+   setState((){
+     numberTxt = result.toString();
+   });
+   setState((){
+     operator = "";
+   });
+   setState((){
+     displayedResult = "";
+   });
+ }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xffbfc9d3),
+      body: Center(
+        child: Container(
+        color: Color(0xff36444f),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: calWidth,
+              height: 150,
+              padding: EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                    equation,
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    displayedResult,
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Material(
+              elevation: 26,
+              child: Container(
+                width: calWidth,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    
+                    BoxShadow (
+                      color: Color(0xff2c3a47),
+                      spreadRadius: 10,
+                      blurRadius: 5,
+                      offset: Offset(0, 7),
+                  ),
+                    
+                  ]
+                  
+                ),
+                child: GridView(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                  ),
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        displayNumber("7");
+                      },
+                      child: Center(
+                        child: Text(
+                          "7",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("8");
+                      },
+                      child: Center(
+                        child: Text(
+                          "8",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("9");
+                      },
+                      child: Center(
+                        child: Text(
+                          "9",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setOperator("/");
+                      },
+                      child: Center(
+                        child: Text(
+                          "/",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("4");
+                      },
+                      child: Center(
+                        child: Text(
+                          "4",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("5");
+                      },
+                      child: Center(
+                        child: Text(
+                          "5",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("6");
+                      },
+                      child: Center(
+                        child: Text(
+                          "6",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setOperator("*");
+                      },
+                      child: Center(
+                        child: Text(
+                          "*",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("1");
+                      },
+                      child: Center(
+                        child: Text(
+                          "1",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("2");
+                      },
+                      child: Center(
+                        child: Text(
+                          "2",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("3");
+                      },
+                      child: Center(
+                        child: Text(
+                          "3",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setOperator("-");
+                      },
+                      child: Center(
+                        child: Text(
+                          "-",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber("0");
+                      },
+                      child: Center(
+                        child: Text(
+                          "0",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        displayNumber(".");
+                      },
+                      child: Center(
+                        child: Text(
+                          ".",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                         displayResult();
+                      },
+                      child: Center(
+                        child: Text(
+                          "=",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setOperator("+");
+                      },
+                      child: Center(
+                        child: Text(
+                          "+",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      )),
+    );
+  }
+}
